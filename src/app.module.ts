@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Season } from './entities/season.entity';
 import { Modules } from './modules';
+import { migrationsArr } from './migrations';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { Modules } from './modules';
       username: process.env.DB_USER,
       password: process.env.DB_PW,
       database: process.env.DATABASE,
-      entities: [Season]
+      entities: [Season],
+      migrations: migrationsArr
     }),
     ...Modules
   ],
