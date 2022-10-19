@@ -3,26 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Season } from './entity/seasons/season.entity';
-import { ApiModule } from './entity/api/api.module';
-import { SeasonModule } from './entity/seasons/seasons.module';
-import { RouterModule } from '@nestjs/core';
+import { Season } from './entities/season.entity';
+import { Modules } from './modules';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    RouterModule.register([
-      {
-        path: 'api',
-        module: ApiModule,
-        children: [
-          {
-            path: 'seasons',
-            module: SeasonModule
-          }
-        ]
-      }
-    ]),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -32,7 +18,7 @@ import { RouterModule } from '@nestjs/core';
       database: process.env.DATABASE,
       entities: [Season]
     }),
-    ApiModule
+    ...Modules
   ],
   controllers: [AppController],
   providers: [AppService],

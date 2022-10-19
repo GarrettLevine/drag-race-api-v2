@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Season } from './season.entity';
+import { Season } from '../../entities/season.entity';
 import { SeasonsController } from './seasons.controller';
 import { SeasonsService } from './seasons.service';
 
@@ -11,4 +11,4 @@ import { SeasonsService } from './seasons.service';
     controllers: [SeasonsController]
 })
 
-export class SeasonModule {}
+export class SeasonsModule {}
