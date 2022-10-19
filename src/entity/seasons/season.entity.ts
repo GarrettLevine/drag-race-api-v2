@@ -10,7 +10,7 @@ export class Season {
     seasonNumber: string
 
     @Column({ nullable: true, type: "int" })
-    winnerId: number | null
+    winnerId?: number
 
     @Column()
     image_url: string
