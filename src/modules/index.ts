@@ -1,5 +1,5 @@
 import { SeasonsModule } from "./seasons/seasons.module";
 
-export const Modules = [
+export const modulesArr = [
     SeasonsModule
 ]

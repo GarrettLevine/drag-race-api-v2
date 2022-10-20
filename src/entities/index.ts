@@ -1,3 +1,5 @@
 import { Season } from './season.entity'
 
-export default [ Season ];
+export const entitiesArr = [
+    Season
+];
