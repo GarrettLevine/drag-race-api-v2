@@ -5,7 +5,7 @@ export class SeasonsUpdating1666213888459 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'seasons',
+                name: 'season',
                 columns: [
                     {
                         name: 'id',
@@ -40,7 +40,7 @@ export class SeasonsUpdating1666213888459 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('seasons');
+        await queryRunner.dropTable('season');
     }
 
 }
