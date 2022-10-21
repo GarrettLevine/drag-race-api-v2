@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class Season {
+@Entity('season')
+export class SeasonEntity {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -9,7 +9,7 @@ export class Season {
     @Column()
     seasonNumber: string
 
-    @Column({ nullable: true, type: "int" })
+    @Column()
     winnerId?: number
 
     @Column()

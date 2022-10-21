@@ -1,5 +1,5 @@
-import { Season } from './season.entity'
+import { SeasonEntity } from './season.entity'
 
 export const entitiesArr = [
-    Season
+    SeasonEntity
 ];

@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { 
+    Body, 
+    Controller, 
+    Get, 
+    Param, 
+    Post, 
+    UsePipes, 
+    ValidationPipe 
+} from '@nestjs/common';
 import { SeasonsService } from './seasons.service';
-import { Season } from 'src/entities/season.entity';
+import { CreateSeasonDto, FindOneSeasonParam, SeasonDto } from './seasons.types';
 
 @Controller('seasons')
 export class SeasonsController {
@@ -12,12 +20,15 @@ export class SeasonsController {
     }
 
     @Get(':id')
-    getOneSeason(@Param('id') id: number): object {
-        return this.seasonsService.findOne(id);
+    @UsePipes(new ValidationPipe())
+    async getOneSeason(@Param() params: FindOneSeasonParam): Promise<SeasonDto | object> {
+        const res = await this.seasonsService.findOne(params.id);
+        return res ? res : { message: "We couldn't find a season with that id!"}
     }
 
     @Post()
-    createSeason(@Body() newSeason: Season): object {
-        return this.seasonsService.createSeason(newSeason);
+    @UsePipes(new ValidationPipe())
+    async createSeason(@Body() createSeasonDto: CreateSeasonDto): Promise<SeasonDto> {
+        return this.seasonsService.createSeason(createSeasonDto);
     }
 }

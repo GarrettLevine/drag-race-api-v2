@@ -1,25 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions, Repository } from 'typeorm';
-import { Season } from '../../entities/season.entity';
+import { SeasonEntity } from 'src/entities/season.entity';
+import { Repository } from 'typeorm';
+import { CreateSeasonDto, SeasonDto } from './seasons.types';
 
 @Injectable()
 export class SeasonsService {
     constructor(
-        @InjectRepository(Season)
-        private seasonsRepository: Repository<Season>
+        @InjectRepository(SeasonEntity)
+        private seasonsRepository: Repository<SeasonEntity>
     ) {}
 
-    findAll(): Promise<Season[]> {
+    findAll(): Promise<SeasonDto[]> {
         return this.seasonsRepository.find();
     }
 
-    findOne(id: number): Promise<Season> {
+    findOne(id: number): Promise<SeasonEntity | object> {
         return this.seasonsRepository.findOne({ where: { id }});
     }
 
-    async createSeason(newSeason: Season): Promise<Season> {
-        const result = await this.seasonsRepository.save(newSeason);
+    async createSeason(createSeasonDto: CreateSeasonDto): Promise<SeasonEntity> {
+        const result = await this.seasonsRepository.save(createSeasonDto);
         return result;
     }
 }
