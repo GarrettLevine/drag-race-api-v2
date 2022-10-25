@@ -1,26 +1,40 @@
+import { SeasonEntity } from 'src/entities/season.entity';
+import { CreateSeasonDto, SeasonDto } from './seasons.types';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SeasonEntity } from 'src/entities/season.entity';
 import { Repository } from 'typeorm';
-import { CreateSeasonDto, SeasonDto } from './seasons.types';
+import { Mapper } from '@automapper/core';
+import { InjectMapper } from '@automapper/nestjs';
 
 @Injectable()
 export class SeasonsService {
     constructor(
         @InjectRepository(SeasonEntity)
-        private seasonsRepository: Repository<SeasonEntity>
-    ) {}
+        private seasonsRepository: Repository<SeasonEntity>,
+        @InjectMapper() private readonly classMapper: Mapper,
+    ) { }
 
-    findAll(): Promise<SeasonDto[]> {
-        return this.seasonsRepository.find();
+    async findAll(): Promise<SeasonDto[]> {
+        try {
+            return this.classMapper.mapArrayAsync(await this.seasonsRepository.find(), SeasonEntity, SeasonDto);
+        } catch (err) {
+            throw new Error(`findAll failed: ${err.message}`);
+        }
     }
 
-    findOne(id: number): Promise<SeasonEntity | object> {
-        return this.seasonsRepository.findOne({ where: { id }});
+    async findOne(id: number): Promise<SeasonDto> {
+        try {
+            return this.classMapper.mapAsync(await this.seasonsRepository.findOne({  where: { id }}), SeasonEntity, SeasonDto)
+        } catch (err) {
+            throw new Error(`findOne failed: ${err.message}`);
+        }
     }
 
-    async createSeason(createSeasonDto: CreateSeasonDto): Promise<SeasonEntity> {
-        const result = await this.seasonsRepository.save(createSeasonDto);
-        return result;
+    async createSeason(createSeasonDto: CreateSeasonDto): Promise<SeasonDto> {
+        try {
+            return this.classMapper.mapAsync(await this.seasonsRepository.save(createSeasonDto), SeasonEntity, SeasonDto);
+        } catch (err) {
+            throw new Error(`create failed: ${err.message}`);
+        }
     }
 }

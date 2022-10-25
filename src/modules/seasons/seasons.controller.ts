@@ -15,7 +15,7 @@ export class SeasonsController {
     constructor(private readonly seasonsService: SeasonsService) {}
 
     @Get()
-    getSeasons(): object {
+    async getSeasons(): Promise<SeasonDto[]> {
         return this.seasonsService.findAll();
     }
 

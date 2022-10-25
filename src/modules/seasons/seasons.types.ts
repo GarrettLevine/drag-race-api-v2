@@ -9,7 +9,9 @@ import {
     Min, 
     Validate 
 } from 'class-validator';
+import { AutoMap } from '@automapper/classes';
 import { IsNullOrNumber } from 'src/utils/validators';
+import { Exclude, Expose } from 'class-transformer';
 
 export class CreateSeasonDto {
     @IsNotEmpty()
@@ -45,21 +47,25 @@ export class SeasonDto {
     @IsNotEmpty()
     @IsString()
     @MaxLength(20)
+    @AutoMap()
     seasonNumber: string;
 
     @Validate(IsNullOrNumber)
     @Min(0)
     @Max(500)
+    @AutoMap()
     winnerId?: number;
 
     @IsNotEmpty()
     @IsUrl()
     @MaxLength(1000)
+    @AutoMap()
     image_url: string;
 
     @IsNotEmpty()
     @IsNumber()
     @Min(2009)
     @Max(2099)
+    @AutoMap()
     year: number;
 }
