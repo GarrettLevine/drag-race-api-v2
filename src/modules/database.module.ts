@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SeasonEntity } from 'src/entities/season.entity';
 
 @Module({
     imports: [
@@ -15,7 +14,6 @@ import { SeasonEntity } from 'src/entities/season.entity';
                 username: configService.get('DB_USER'),
                 password: configService.get('DB_PW'),
                 database: configService.get('DATABASE'),
-                entities: [SeasonEntity],
                 autoLoadEntities: true
             })
         })

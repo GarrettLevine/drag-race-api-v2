@@ -7,6 +7,7 @@ import {
     UsePipes, 
     ValidationPipe 
 } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common/exceptions';
 import { SeasonsService } from './seasons.service';
 import { CreateSeasonDto, FindOneSeasonParam, SeasonDto } from './seasons.types';
 
@@ -16,19 +17,30 @@ export class SeasonsController {
 
     @Get()
     async getSeasons(): Promise<SeasonDto[]> {
-        return this.seasonsService.findAll();
+        const res = await this.seasonsService.findAll();
+        if (res)
+            return res;
+        else
+            throw new NotFoundException();
     }
 
     @Get(':id')
     @UsePipes(new ValidationPipe())
     async getOneSeason(@Param() params: FindOneSeasonParam): Promise<SeasonDto | object> {
         const res = await this.seasonsService.findOne(params.id);
-        return res ? res : { message: "We couldn't find a season with that id!"}
+        if (res)
+            return res;
+        else
+            throw new NotFoundException();
     }
 
     @Post()
     @UsePipes(new ValidationPipe())
     async createSeason(@Body() createSeasonDto: CreateSeasonDto): Promise<SeasonDto> {
-        return this.seasonsService.createSeason(createSeasonDto);
+        const res = await this.seasonsService.createSeason(createSeasonDto);
+        if (res)
+            return res;
+        else
+            throw new NotFoundException();
     }
 }

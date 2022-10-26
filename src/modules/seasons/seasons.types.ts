@@ -11,7 +11,6 @@ import {
 } from 'class-validator';
 import { AutoMap } from '@automapper/classes';
 import { IsNullOrNumber } from 'src/utils/validators';
-import { Exclude, Expose } from 'class-transformer';
 
 export class CreateSeasonDto {
     @IsNotEmpty()
