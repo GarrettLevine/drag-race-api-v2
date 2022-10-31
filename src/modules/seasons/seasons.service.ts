@@ -19,7 +19,7 @@ export class SeasonsService {
         try {
             return this.classMapper.mapArrayAsync(await this.seasonsRepository.find(), SeasonEntity, SeasonDto);
         } catch {
-            throw new InternalServerErrorException('could not retrieve seasons');
+            throw new InternalServerErrorException();
         }
     }
 
@@ -27,7 +27,7 @@ export class SeasonsService {
         try {
             return this.classMapper.mapAsync(await this.seasonsRepository.findOne({  where: { id }}), SeasonEntity, SeasonDto)
         } catch {
-            throw new InternalServerErrorException(`could not retrieve season of id=[${id}]`);
+            throw new InternalServerErrorException();
         }
     }
 
@@ -35,7 +35,7 @@ export class SeasonsService {
         try {
             return this.classMapper.mapAsync(await this.seasonsRepository.save(createSeasonDto), SeasonEntity, SeasonDto);
         } catch {
-            throw new InternalServerErrorException('could not create season');
+            throw new InternalServerErrorException();
         }
     }
 }
