@@ -1,5 +1,5 @@
 import { ConfigService } from "@nestjs/config";
-import { Season } from "src/entities/season.entity";
+import { entitiesArr } from "src/entities";
 import { migrationsArr } from "src/migrations";
 import { DataSource } from "typeorm";
 
@@ -12,6 +12,6 @@ export default new DataSource({
     username: configService.get('DB_USER'),
     password: configService.get('DB_PW'),
     database: configService.get('DATABASE'),
-    entities: [Season],
+    entities: entitiesArr,
     migrations: migrationsArr
 });

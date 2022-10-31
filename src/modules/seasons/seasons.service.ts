@@ -1,16 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Season } from '../../entities/season.entity';
+import { Mapper } from '@automapper/core';
+import { InjectMapper } from '@automapper/nestjs';
+import { InternalServerErrorException } from '@nestjs/common/exceptions';
+import { SeasonEntity } from 'src/entities/season.entity';
+import { CreateSeasonDto, SeasonDto } from './seasons.types';
 
 @Injectable()
 export class SeasonsService {
     constructor(
-        @InjectRepository(Season)
-        private seasonsRepository: Repository<Season>
-    ) {}
+        @InjectRepository(SeasonEntity)
+        private seasonsRepository: Repository<SeasonEntity>,
+        @InjectMapper() private readonly classMapper: Mapper,
+    ) { }
 
-    findAll(): Promise<Season[]> {
-        return this.seasonsRepository.find();
+    async findAll(): Promise<SeasonDto[]> {
+        try {
+            return this.classMapper.mapArrayAsync(await this.seasonsRepository.find(), SeasonEntity, SeasonDto);
+        } catch {
+            throw new InternalServerErrorException();
+        }
+    }
+
+    async findOne(id: number): Promise<SeasonDto> {
+        try {
+            return this.classMapper.mapAsync(await this.seasonsRepository.findOne({  where: { id }}), SeasonEntity, SeasonDto)
+        } catch {
+            throw new InternalServerErrorException();
+        }
+    }
+
+    async createSeason(createSeasonDto: CreateSeasonDto): Promise<SeasonDto> {
+        try {
+            return this.classMapper.mapAsync(await this.seasonsRepository.save(createSeasonDto), SeasonEntity, SeasonDto);
+        } catch {
+            throw new InternalServerErrorException();
+        }
     }
 }

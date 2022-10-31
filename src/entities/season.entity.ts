@@ -1,20 +1,25 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { AutoMap } from '@automapper/classes';
 
-@Entity()
-export class Season {
-
+@Entity('season')
+export class SeasonEntity {
+    @AutoMap()
     @PrimaryGeneratedColumn()
     id: number
 
+    @AutoMap()
     @Column()
     seasonNumber: string
 
-    @Column({ nullable: true, type: "int" })
+    @AutoMap()
+    @Column()
     winnerId?: number
 
+    @AutoMap()
     @Column()
     image_url: string
 
+    @AutoMap()
     @Column()
     year: number
 }
