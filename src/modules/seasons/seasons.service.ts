@@ -4,9 +4,9 @@ import { Repository } from 'typeorm';
 import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
-import { SeasonEntity } from 'src/entities/season.entity';
+import { SeasonEntity } from '../../entities/season.entity';
 import { CreateSeasonDto, SeasonDto } from './seasons.types';
-import { ApiLogger } from 'src/utils/logger';
+import { ApiLogger } from '../../utils/logger';
 
 @Injectable()
 export class SeasonsService {
@@ -30,10 +30,10 @@ export class SeasonsService {
 
     async findOne(id: number): Promise<SeasonDto> {
         try {
-            this.logger.log(`Finding season of id=[${id}]...`);
+            this.logger.log(`Finding season of id=[ ${id} ]...`);
             return this.classMapper.mapAsync(await this.seasonsRepository.findOne({  where: { id }}), SeasonEntity, SeasonDto)
         } catch {
-            this.logger.error(`Could not find season with id:[${id}]`);
+            this.logger.error(`Could not find season with id=[ ${id} ]`);
             throw new InternalServerErrorException();
         }
     }

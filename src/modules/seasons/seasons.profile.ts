@@ -2,7 +2,7 @@ import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { createMap } from '@automapper/core';
 import type { Mapper } from '@automapper/core';
 import { Injectable } from '@nestjs/common';
-import { SeasonEntity } from 'src/entities/season.entity';
+import { SeasonEntity } from '../../entities/season.entity';
 import { SeasonDto } from './seasons.types';
 
 @Injectable()
