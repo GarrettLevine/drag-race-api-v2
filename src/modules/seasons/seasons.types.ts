@@ -41,6 +41,7 @@ export class FindOneSeasonParam {
 export class SeasonDto {
     @IsNumber()
     @Min(0)
+    @AutoMap()
     id: number;
 
     @IsNotEmpty()
