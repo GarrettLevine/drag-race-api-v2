@@ -18,7 +18,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "NODE_ENV='test' npm run migration:up && jest --config ./test/jest-e2e.json --detectOpenHandles",
+    "test:e2e": "cross-env NODE_ENV=test npm run migration:up && jest --config ./test/jest-e2e.json --detectOpenHandles",
     "migration:up": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run -d ./src/utils/migration.config.ts",
     "migration:down": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:revert -d ./src/utils/migration.config.ts"
   },
@@ -51,6 +51,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
