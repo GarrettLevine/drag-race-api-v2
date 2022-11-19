@@ -1,0 +1,30 @@
+[
+  {
+    "environment": "dev",
+    "name": "default",
+    "driver": {
+      "type": "mysql",
+      "host": "localhost",
+      "port": 5432,
+      "username": "admin",
+      "password": "test",
+      "database": "drag_race"
+    },
+    "entities": [ "dist/model/*.js" ],
+    "autoSchemaSync": true
+  },
+  {
+    "environment": "test",
+    "name": "default",
+    "driver": {
+      "type": "mysql",
+      "host": "localhost",
+      "port": 5432,
+      "username": "admin",
+      "password": "test",
+      "database": "drag_race_test"
+    },
+    "entities": [ "dist/model/*.js" ],
+    "autoSchemaSync": true
+  }
+]

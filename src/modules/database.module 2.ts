@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as entities from '../entities/index';
 
 @Module({
     imports: [
@@ -13,10 +14,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
                 port: configService.get('DB_PORT'),
                 username: configService.get('DB_USER'),
                 password: configService.get('DB_PW'),
-                database: `drag_race_test`,
-                autoLoadEntities: true,
+                database: configService.get('DATABASE'),
+                // entities,
+                autoLoadEntities: true
             })
-        })
+        }),
     ],
 })
-export class TestDataBaseModule {}
+export class DataBaseModule {}

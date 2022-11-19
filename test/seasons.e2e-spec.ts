@@ -6,21 +6,22 @@ import { classes } from '@automapper/classes';
 import { Repository } from 'typeorm';
 
 import { SeasonsModule } from '../src/modules/seasons/seasons.module';
-import { SeasonEntity } from 'src/entities/season.entity';
+import { SeasonEntity } from '../src/entities/season.entity';
 
 import * as testDataJson from './testData.json';
-import { TestDataBaseModule } from './databaseTest.module';
+import { DataBaseModule } from '../src/modules/database.module';
+
 
 describe('Seasons', () => {
     let app: INestApplication;
     let repository: Repository<SeasonEntity>;
     const testSeasonVal = 0;
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         const moduleRef = await Test.createTestingModule({
             imports: [
                 AutomapperModule.forRoot({ strategyInitializer: classes() }),
-                TestDataBaseModule,
+                DataBaseModule,
                 SeasonsModule, 
             ],
         })
@@ -71,11 +72,12 @@ describe('Seasons', () => {
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(201)
-            .expect(res => {
+            .expect(async res => {
                 const { id, ...resBody } = res.body;
                 return resBody === body;
             });
-
+        
+        
         return await request(app.getHttpServer())
             .get(`/seasons/${response.body.id}`)
             .set('Accept', 'application/json')
