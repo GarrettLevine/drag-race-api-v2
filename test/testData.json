@@ -1,0 +1,26 @@
+[
+    {
+        "seasonNumber": "A02",
+        "winnerId": 9,
+        "image_url": "www.bing.com",
+        "year": 2009
+    },
+    {
+        "seasonNumber": "4",
+        "winnerId": null,
+        "image_url": "www.microsoft.com",
+        "year": 2009
+    },
+    {
+        "seasonNumber": "1",
+        "winnerId": 2,
+        "image_url": "www.facebook.com",
+        "year": 2009
+    },
+    {
+        "seasonNumber": "3",
+        "winnerId": 19,
+        "image_url": "www.google.ca",
+        "year": 2009
+    }
+]

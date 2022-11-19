@@ -10,7 +10,7 @@ import {
     Validate 
 } from 'class-validator';
 import { AutoMap } from '@automapper/classes';
-import { IsNullOrNumber } from 'src/utils/validators';
+import { IsNullOrNumber } from '../../utils/validators';
 
 export class CreateSeasonDto {
     @IsNotEmpty()
@@ -41,6 +41,7 @@ export class FindOneSeasonParam {
 export class SeasonDto {
     @IsNumber()
     @Min(0)
+    @AutoMap()
     id: number;
 
     @IsNotEmpty()
